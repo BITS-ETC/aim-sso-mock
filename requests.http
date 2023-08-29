@@ -1,0 +1,8 @@
+# @no-log
+GET http://localhost:3891/sso?redirect_uri=https://example.com/verify/&user=balakhanov_v
+
+###
+# @no-log
+GET http://localhost:3891/sso/verify/801be1e9b80b9fc28d69f9a1b6467314
+
+###
