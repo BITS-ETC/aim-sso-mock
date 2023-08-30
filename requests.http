@@ -1,5 +1,5 @@
 # @no-log
-GET http://localhost:3891/sso?redirect_uri=https://example.com/verify/&user=balakhanov_v
+GET http://localhost:3891/sso?redirect_uri=https://example.com/verify/&user=baumbach_c
 
 ###
 # @no-log
