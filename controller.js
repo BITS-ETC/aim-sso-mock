@@ -1,17 +1,67 @@
 const crypto = require('crypto');
 
 // List of fake usernames for demonstration
-const fakeUsernames = [
-    'johnston_k',
-    'hudson_b',
-    'baumbach_c',
-    'mann_t',
-    'jaskolski_c',
-    'orn_r',
-    'barton_j',
-    'kuphal_r',
-    'berge_c',
-    'kassulke_c',
+const fakeUsers = [
+    {
+        samaccountname: 'johnston_k',
+        ldap_groups: [
+            'admins'
+        ]
+    },
+    {
+        samaccountname: 'hudson_b',
+        ldap_groups: [
+            'team_1'
+        ]
+    },
+    {
+        samaccountname: 'baumbach_c',
+        ldap_groups: [
+            'team_2'
+        ]
+    },
+    {
+        samaccountname: 'mann_t',
+        ldap_groups: [
+            'team_3'
+        ]
+    },
+    {
+        samaccountname: 'jaskolski_c',
+        ldap_groups: [
+            'team_1'
+        ]
+    },
+    {
+        samaccountname: 'orn_r',
+        ldap_groups: [
+            'team_2'
+        ]
+    },
+    {
+        samaccountname: 'barton_j',
+        ldap_groups: [
+            'team_3'
+        ]
+    },
+    {
+        samaccountname: 'kuphal_r',
+        ldap_groups: [
+            'team_1'
+        ]
+    },
+    {
+        samaccountname: 'berge_c',
+        ldap_groups: [
+            'team_2'
+        ]
+    },
+    {
+        samaccountname: 'kassulke_c',
+        ldap_groups: [
+            'team_3'
+        ]
+    },
 ];
 
 module.exports = {
@@ -27,6 +77,8 @@ module.exports = {
 
         // Check if required query parameters are provided
         if (!redirect_uri || !user) {
+            const fakeUsernames = fakeUsers.map((item) => item.samaccountname);
+
             return res.status(422).send('redirect_uri and user required. Allowed users: ' + fakeUsernames.join(', '));
         }
 
@@ -52,8 +104,8 @@ module.exports = {
         }
 
         // Find the corresponding user for the given token
-        const user = fakeUsernames.find((item) => {
-            const hash = crypto.createHash('md5').update(item).digest('hex');
+        const user = fakeUsers.find((item) => {
+            const hash = crypto.createHash('md5').update(item.samaccountname).digest('hex');
 
             return hash === token;
         });

@@ -13,6 +13,14 @@ if (!process.env.PORT) {
 // Create an Express app
 const app = express();
 
+app.use(require('cors')({
+    origin: '*',
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    allowedHeaders: 'Authorization,Accept,Accept-Language,Content-Language,Content-Type,Access-Control-Allow-Origin',
+    exposedHeaders: 'Authorization',
+    methods: 'GET,POST,HEAD,OPTIONS',
+}));
+
 // Define routes and corresponding controller functions
 app.get('/sso/verify/:token', verifyToken);
 app.get('/sso', getTokenAndRedirect);
