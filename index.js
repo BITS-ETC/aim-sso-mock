@@ -1,6 +1,6 @@
 // Import the required modules
 const express = require('express');
-const { getTokenAndRedirect, verifyToken } = require('./controller');
+const { getTokenAndRedirect, verifyToken, employeeLdap } = require('./controller');
 
 // Load environment variables from .env file
 require('dotenv').config({ path: `${__dirname}/.env` });
@@ -24,6 +24,7 @@ app.use(require('cors')({
 // Define routes and corresponding controller functions
 app.get('/sso/verify/:token', verifyToken);
 app.get('/sso', getTokenAndRedirect);
+app.get('/api/employeeLdap/:username', employeeLdap);
 
 // Start the server on the specified port
 app.listen(process.env.PORT, () => {

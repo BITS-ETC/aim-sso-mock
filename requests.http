@@ -1,8 +1,13 @@
 # @no-log
-GET http://localhost:3891/sso?redirect_uri=https://example.com/verify/&user=baumbach_c
+GET http://localhost:5000/sso?redirect_uri=https://example.com/verify/&user=johnston_k
 
 ###
 # @no-log
-GET http://localhost:3891/sso/verify/801be1e9b80b9fc28d69f9a1b6467314
+GET http://localhost:5000/sso/verify/a5332d6b7a54baf4cd970ec3b33be443
+
+###
+
+# @no-log
+GET http://localhost:5000/api/employeeLdap/johnston_k
 
 ###

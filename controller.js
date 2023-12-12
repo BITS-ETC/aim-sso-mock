@@ -4,65 +4,106 @@ const crypto = require('crypto');
 const fakeUsers = [
     {
         samaccountname: 'johnston_k',
-        ldap_groups: [
-            'admins'
-        ]
+        ldap_groups: ['admins'],
+        ldap_info: {
+            "name": "Егоров Евгений",
+            "position": "dev",
+            "samaccountname": "johnston_k",
+            "department": "admins",
+        }
     },
     {
         samaccountname: 'hudson_b',
-        ldap_groups: [
-            'team_1'
-        ]
+        ldap_groups: ['team_1'],
+        ldap_info: {
+            "name": "Белов Борис",
+            "position": "ba",
+            "samaccountname": "hudson_b",
+            "department": "team_1",
+        }
     },
     {
         samaccountname: 'baumbach_c',
-        ldap_groups: [
-            'team_2'
-        ]
+        ldap_groups: ['team_2'],
+        ldap_info: {
+            "name": "Александров Александр",
+            "position": "designer",
+            "samaccountname": "baumbach_c",
+            "department": "team_2",
+        }
     },
     {
         samaccountname: 'mann_t',
-        ldap_groups: [
-            'team_3'
-        ]
+        ldap_groups: ['team_3'],
+        ldap_info: {
+            "name": "Тимофеев Тимур",
+            "position": "dev",
+            "samaccountname": "mann_t",
+            "department": "team_3",
+        }
     },
     {
         samaccountname: 'jaskolski_c',
-        ldap_groups: [
-            'team_1'
-        ]
+        ldap_groups: ['team_1'],
+        ldap_info: {
+            "name": "Чернов Чеслав",
+            "position": "dev",
+            "samaccountname": "jaskolski_c",
+            "department": "team_1",
+        }
     },
     {
         samaccountname: 'orn_r',
-        ldap_groups: [
-            'team_2'
-        ]
+        ldap_groups: ['team_2'],
+        ldap_info: {
+            "name": "Романов Роман",
+            "position": "qa",
+            "samaccountname": "orn_r",
+            "department": "team_2",
+        }
     },
     {
         samaccountname: 'barton_j',
-        ldap_groups: [
-            'team_3'
-        ]
+        ldap_groups: ['team_3'],
+        ldap_info: {
+            "name": "Дмитриев Дмитрий",
+            "position": "manager",
+            "samaccountname": "barton_j",
+            "department": "team_3",
+        }
     },
     {
         samaccountname: 'kuphal_r',
-        ldap_groups: [
-            'team_1'
-        ]
+        ldap_groups: ['team_1'],
+        ldap_info: {
+            "name": "Русланов Руслан",
+            "position": "ba",
+            "samaccountname": "kuphal_r",
+            "department": "team_1",
+        }
     },
     {
         samaccountname: 'berge_c',
-        ldap_groups: [
-            'team_2'
-        ]
+        ldap_groups: ['team_2'],
+        ldap_info: {
+            "name": "Степанов Степан",
+            "position": "dev",
+            "samaccountname": "berge_c",
+            "department": "team_2",
+        }
     },
     {
         samaccountname: 'kassulke_c',
-        ldap_groups: [
-            'team_3'
-        ]
+        ldap_groups: ['team_3'],
+        ldap_info: {
+            "name": "Константинов Константин",
+            "position": "dev",
+            "samaccountname": "kassulke_c",
+            "department": "team_3",
+        }
     },
 ];
+
 
 module.exports = {
     /**
@@ -117,4 +158,22 @@ module.exports = {
             return res.status(503).send('Token verification failed');
         }
     },
+
+    employeeLdap(req, res) {
+        const username = req.params.username;
+
+        // Check if username is provided
+        if (!username) {
+            return res.status(422).send('Username required');
+        }
+
+        const user = fakeUsers.find((item) => item.samaccountname === username);
+
+        // Respond with user if found, otherwise return an error response
+        if (user) {
+            return res.send(user.ldap_info);
+        } else {
+            return res.status(503).send('User not found');
+        }
+    }
 };
