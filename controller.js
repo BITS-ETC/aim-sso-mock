@@ -3,107 +3,80 @@ const crypto = require('crypto');
 // List of fake usernames for demonstration
 const fakeUsers = [
     {
-        samaccountname: 'johnston_k',
-        ldap_groups: ['admins'],
-        ldap_info: {
-            "name": "Егоров Евгений",
-            "position": "dev",
-            "samaccountname": "johnston_k",
-            "department": "admins",
-        }
+        'id': 101,
+        'name': 'Ivanov Alex',
+        'position': 'Back-end Dev',
+        'samaccountname': 'ivanov_a',
+        'department': 'WebSolutions',
+        'ldapGroups': [
+            {'id': 30, 'name': 'group_websolutions', 'pivot': {'user_id': 101, 'ldap_group_id': 30}},
+            {'id': 19, 'name': 'VPN', 'pivot': {'user_id': 101, 'ldap_group_id': 19}},
+            {'id': 119, 'name': 'group_commonresourcepool', 'pivot': {'user_id': 101, 'ldap_group_id': 119}},
+        ],
     },
     {
-        samaccountname: 'hudson_b',
-        ldap_groups: ['team_1'],
-        ldap_info: {
-            "name": "Белов Борис",
-            "position": "ba",
-            "samaccountname": "hudson_b",
-            "department": "team_1",
-        }
+        'id': 102,
+        'name': 'Petrov Dmitry',
+        'position': 'Front-end Dev',
+        'samaccountname': 'petrov_d',
+        'department': 'WebSolutions',
+        'ldapGroups': [
+            {'id': 30, 'name': 'group_websolutions', 'pivot': {'user_id': 102, 'ldap_group_id': 30}},
+            {'id': 20, 'name': 'SP_Portal-Home-Users', 'pivot': {'user_id': 102, 'ldap_group_id': 20}},
+            {'id': 119, 'name': 'group_commonresourcepool', 'pivot': {'user_id': 102, 'ldap_group_id': 119}},
+        ],
     },
     {
-        samaccountname: 'baumbach_c',
-        ldap_groups: ['team_2'],
-        ldap_info: {
-            "name": "Александров Александр",
-            "position": "designer",
-            "samaccountname": "baumbach_c",
-            "department": "team_2",
-        }
+        'id': 201,
+        'name': 'Sidorov Nikolay',
+        'position': 'PHP Dev',
+        'samaccountname': 'sidorov_n',
+        'department': 'CloudTech',
+        'ldapGroups': [
+            {'id': 31, 'name': 'group_cloudtech', 'pivot': {'user_id': 201, 'ldap_group_id': 31}},
+            {'id': 19, 'name': 'VPN', 'pivot': {'user_id': 201, 'ldap_group_id': 19}},
+            {'id': 119, 'name': 'group_commonresourcepool', 'pivot': {'user_id': 201, 'ldap_group_id': 119}},
+        ],
     },
     {
-        samaccountname: 'mann_t',
-        ldap_groups: ['team_3'],
-        ldap_info: {
-            "name": "Тимофеев Тимур",
-            "position": "dev",
-            "samaccountname": "mann_t",
-            "department": "team_3",
-        }
+        'id': 202,
+        'name': 'Fedorov Maxim',
+        'position': 'DevOps Engineer',
+        'samaccountname': 'fedorov_v',
+        'department': 'CloudTech',
+        'ldapGroups': [
+            {'id': 31, 'name': 'group_cloudtech', 'pivot': {'user_id': 202, 'ldap_group_id': 31}},
+            {'id': 49, 'name': 'Shared-02_remote-access', 'pivot': {'user_id': 202, 'ldap_group_id': 49}},
+            {'id': 119, 'name': 'group_commonresourcepool', 'pivot': {'user_id': 202, 'ldap_group_id': 119}},
+        ],
     },
     {
-        samaccountname: 'jaskolski_c',
-        ldap_groups: ['team_1'],
-        ldap_info: {
-            "name": "Чернов Чеслав",
-            "position": "dev",
-            "samaccountname": "jaskolski_c",
-            "department": "team_1",
-        }
+        'id': 301,
+        'name': 'Kuznetsov Andrei',
+        'position': 'Software Tester',
+        'samaccountname': 'kuznetsov_a',
+        'department': 'QAGroup',
+        'ldapGroups': [
+            {'id': 32, 'name': 'group_qagroup', 'pivot': {'user_id': 301, 'ldap_group_id': 32}},
+            {'id': 19, 'name': 'VPN', 'pivot': {'user_id': 301, 'ldap_group_id': 19}},
+            {'id': 20, 'name': 'SP_Portal-Home-Users', 'pivot': {'user_id': 301, 'ldap_group_id': 20}},
+            {'id': 119, 'name': 'group_commonresourcepool', 'pivot': {'user_id': 301, 'ldap_group_id': 119}},
+        ],
     },
     {
-        samaccountname: 'orn_r',
-        ldap_groups: ['team_2'],
-        ldap_info: {
-            "name": "Романов Роман",
-            "position": "qa",
-            "samaccountname": "orn_r",
-            "department": "team_2",
-        }
-    },
-    {
-        samaccountname: 'barton_j',
-        ldap_groups: ['team_3'],
-        ldap_info: {
-            "name": "Дмитриев Дмитрий",
-            "position": "manager",
-            "samaccountname": "barton_j",
-            "department": "team_3",
-        }
-    },
-    {
-        samaccountname: 'kuphal_r',
-        ldap_groups: ['team_1'],
-        ldap_info: {
-            "name": "Русланов Руслан",
-            "position": "ba",
-            "samaccountname": "kuphal_r",
-            "department": "team_1",
-        }
-    },
-    {
-        samaccountname: 'berge_c',
-        ldap_groups: ['team_2'],
-        ldap_info: {
-            "name": "Степанов Степан",
-            "position": "dev",
-            "samaccountname": "berge_c",
-            "department": "team_2",
-        }
-    },
-    {
-        samaccountname: 'kassulke_c',
-        ldap_groups: ['team_3'],
-        ldap_info: {
-            "name": "Константинов Константин",
-            "position": "dev",
-            "samaccountname": "kassulke_c",
-            "department": "team_3",
-        }
+        'id': 302,
+        'name': 'Adminov Admin',
+        'position': 'RM',
+        'samaccountname': 'adminov_a',
+        'department': 'CloudTech',
+        'ldapGroups': [
+            {'id': 32, 'name': 'group_qagroup', 'pivot': {'user_id': 302, 'ldap_group_id': 32}},
+            {'id': 19, 'name': 'VPN', 'pivot': {'user_id': 302, 'ldap_group_id': 19}},
+            {'id': 119, 'name': 'group_commonresourcepool', 'pivot': {'user_id': 302, 'ldap_group_id': 119}},
+            {'id': 122, 'name': 'group_resourcemanagers', 'pivot': {'user_id': 302, 'ldap_group_id': 122}},
+        ],
     },
 ];
-
 
 module.exports = {
     /**
@@ -153,7 +126,12 @@ module.exports = {
 
         // Respond with user if found, otherwise return an error response
         if (user) {
-            return res.send(user);
+            const userData = {
+                samaccountname: user.samaccountname,
+                ldapGroups: user.ldapGroups.map((item) => item.name)
+            };
+
+            return res.send(userData);
         } else {
             return res.status(503).send('Token verification failed');
         }
@@ -171,9 +149,9 @@ module.exports = {
 
         // Respond with user if found, otherwise return an error response
         if (user) {
-            return res.send(user.ldap_info);
+            return res.send(user);
         } else {
             return res.status(503).send('User not found');
         }
-    }
+    },
 };
